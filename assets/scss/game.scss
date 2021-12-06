@@ -2,6 +2,7 @@
     display: flex;
     width: 95%;
     justify-content: space-around;
+    flex-wrap: wrap;
     .canvas,
     .chatMessages {
       background-color: white;

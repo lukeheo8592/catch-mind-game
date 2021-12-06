@@ -12,7 +12,7 @@ const currentColor = document.getElementById("jsCurrentColor");
 const INITIAL_COLOR = "#2c2c2c";
 const CANVAS_SIZE = 700;
 
-function init(){
+const init = () => {
   const canvaswidth = document.getElementById("canvaswidth").offsetWidth;
   canvas.width = canvaswidth;
   canvas.height = CANVAS_SIZE;
@@ -29,11 +29,11 @@ function init(){
 let painting = false;
 let filling = false;
 
-function stopPainting() {
+const stopPainting = () => {
   painting = false;
 }
 
-function startPainting() {
+const startPainting = () => {
   painting = true;
 }
 
@@ -42,25 +42,40 @@ const beginPath = (x, y) => {
   ctx.moveTo(x, y);
 };
 
-function clearCanvas(){
+const clearCanvas = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   getSocket().emit(window.events.clear);
 }
 
-const strokePath = (x, y) => {
+const strokePath = (x, y, color = null, lineWidth) => {
+  let currentColor = ctx.strokeStyle;
+  let currentLine = ctx.lineWidth;
+  if (color !== null) {
+    ctx.strokeStyle = color;
+  }
+  if (lineWidth !== null) {
+    ctx.lineWidth = lineWidth;
+  }
   ctx.lineTo(x, y);
   ctx.stroke();
+  ctx.strokeStyle = currentColor;
+  ctx.lineWidth = currentLine;
 };
 
-function onMouseMove(event) {
+const onMouseMove = event => {
   const x = event.offsetX;
   const y = event.offsetY;
   if (!painting) {
     beginPath(x, y);
     getSocket().emit(window.events.beginPath, { x, y });
-  } else {
+  } else if(!filling) {
     strokePath(x, y);
-    getSocket().emit(window.events.strokePath, { x, y });
+    getSocket().emit(window.events.strokePath, {
+      x,
+      y,
+      color: ctx.strokeStyle,
+      lineWidth: ctx.lineWidth
+    });
   }
 }
 
@@ -86,9 +101,20 @@ function handleModeClick() {
   }
 }
 
+const fill = (color = null) => {
+  let currentColor = ctx.fillStyle;
+  if (color !== null) {
+    ctx.fillStyle = color;
+  }
+  ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+  ctx.fillStyle = currentColor;
+};
+
+
 function handleCanvasClick() {
   if (filling) {
-    ctx.fillRect(0, 0, canvas.width, CANVAS_SIZE);
+    fill();
+    getSocket().emit(window.events.fill, { color: ctx.fillStyle });
   }
 }
 
@@ -118,11 +144,14 @@ if(range){
   range.addEventListener("input", handleRangeChange);
 }
 function windowResize() {
+  const currentColor = document.querySelector("#jsCurrentColor");
+  currentColor.style.backgroundColor = "#000000";
   canvas.width = canvaswidth.offsetWidth;
 };
 window.addEventListener('resize', windowResize);
 
 setTimeout(init, 10);
 export const handleBeganPath = ({ x, y }) => beginPath(x, y);
-export const handleStrokedPath = ({ x, y }) => strokePath(x, y);
+export const handleStrokedPath = ({ x, y, color, lineWidth }) => strokePath(x, y, color, lineWidth);
+export const handleFilled = ({ color }) => fill(color);
 export const handleClear = () => ctx.clearRect(0, 0, canvas.width, canvas.height);

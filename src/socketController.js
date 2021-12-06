@@ -20,9 +20,13 @@ socket.on(events.beginPath, ({ x, y }) =>
   broadcast(events.beganPath, { x, y })
 );
 
-socket.on(events.strokePath, ({ x, y }) => {
-  broadcast(events.strokedPath, { x, y });
-  });
+socket.on(events.strokePath, ({ x, y, color, lineWidth }) => {
+  broadcast(events.strokedPath, { x, y, color, lineWidth});
+});
+
+socket.on(events.fill, ({ color }) => {
+  broadcast(events.filled, { color });
+});
 
   socket.on(events.clear, () =>{
     broadcast(events.cleared);
