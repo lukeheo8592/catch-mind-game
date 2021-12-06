@@ -15,7 +15,6 @@ const CANVAS_SIZE = 700;
 function init(){
   const canvaswidth = document.getElementById("canvaswidth").offsetWidth;
   canvas.width = canvaswidth;
-  console.log(canvaswidth + "SAdasdas");
   canvas.height = CANVAS_SIZE;
   
   ctx.fillStyle = "white";
@@ -41,11 +40,11 @@ function startPainting() {
 const beginPath = (x, y) => {
   ctx.beginPath();
   ctx.moveTo(x, y);
-  console.log(canvaswidth.offsetWidth);
 };
 
 function clearCanvas(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  getSocket().emit(window.events.clear);
 }
 
 const strokePath = (x, y) => {
@@ -93,6 +92,7 @@ function handleCanvasClick() {
   }
 }
 
+
 function handleCM(event) {
   event.preventDefault();
 }
@@ -125,3 +125,4 @@ window.addEventListener('resize', windowResize);
 setTimeout(init, 10);
 export const handleBeganPath = ({ x, y }) => beginPath(x, y);
 export const handleStrokedPath = ({ x, y }) => strokePath(x, y);
+export const handleClear = () => ctx.clearRect(0, 0, canvas.width, canvas.height);

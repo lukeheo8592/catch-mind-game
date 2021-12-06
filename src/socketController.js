@@ -22,8 +22,12 @@ socket.on(events.beginPath, ({ x, y }) =>
 
 socket.on(events.strokePath, ({ x, y }) => {
   broadcast(events.strokedPath, { x, y });
-  console.log(x, y);
   });
+
+  socket.on(events.clear, () =>{
+    broadcast(events.cleared);
+    console.log("clear clearasdasd");
+  })
 
 };
 
