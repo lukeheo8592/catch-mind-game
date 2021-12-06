@@ -11,6 +11,7 @@ const events = {
   strokedPath: "strokedPath",
   fill: "fill",
   filled: "filled",
+  playerUpdate: "playerUpdate",
   clear: "clear",
   cleared: "cleared"
 };
