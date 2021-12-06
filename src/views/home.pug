@@ -4,6 +4,7 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        link(rel="stylesheet", href="https://use.fontawesome.com/releases/v5.15.4/css/all.css")
         link(rel="stylesheet", href="/styles/styles.css")
         title Guess Mine
     body
@@ -12,19 +13,38 @@ html(lang="en")
                 input(placeholder="Whats your nickname", type="text")
         .gameContainer#jsGame
             .main
-                canvas.canvas#jsCanvas
+                .canvas__container#canvaswidth 
+                    canvas.canvas#jsCanvas
                 .controls#controls
-                    button#jsMode Fill
+                    .current-color#jsCurrentColor(style="background-color: #000000")
+                    h2 current color
                     .colors
-                        .color.jsColor(style="background-color:rgb(0, 0, 0)")
-                        .color.jsColor(style="background-color:rgb(255,255,255)")
-                        .color.jsColor(style="background-color:rgb(255,59,48)")
-                        .color.jsColor(style="background-color:rgb(255,149,0)")
-                        .color.jsColor(style="background-color:rgb(255,204,0)")
-                        .color.jsColor(style="background-color:rgb(76,217,100)")
-                        .color.jsColor(style="background-color:rgb(90,200,250)")
-                        .color.jsColor(style="background-color:rgb(0,122,255)")
-                        .color.jsColor(style="background-color:rgb(88,86,214)")
+                        .color.jsColor(style="background-color: #000000")
+                        .color.jsColor(style="background-color: #ffffff")
+                        .color.jsColor(style="background-color: #636e72")
+                        .color.jsColor(style="background-color: #b2bec3")
+                        .color.jsColor(style="background-color: #f3a683")
+                        .color.jsColor(style="background-color: #f7d794")
+                        .color.jsColor(style="background-color: #778beb")
+                        .color.jsColor(style="background-color: #e77f67")
+                        .color.jsColor(style="background-color: #cf6a87")
+                        .color.jsColor(style="background-color: #bdc581")
+                        .color.jsColor(style="background-color: #d63031")
+                        .color.jsColor(style="background-color: #ffa801")
+                        .color.jsColor(style="background-color: #ffd32a")
+                        .color.jsColor(style="background-color: #05c46b")
+                        .color.jsColor(style="background-color: #0984e3")
+                        .color.jsColor(style="background-color: #3c40c6")
+                        .color.jsColor(style="background-color: #00d8d6")
+                        .color.jsColor(style="background-color: #cd84f1")
+                        .color.jsColor(style="background-color: #fd79a8")
+                        .color.jsColor(style="background-color: #fffa65")
+                    .brush__container
+                        i.fas.fa-brush
+                        input(type="range" name="input-range" id="jsRange" class="input_range" min="1" max="10" value="4" step="0.1")
+                    .buttons 
+                        button#jsMode Fill
+                        button#jsClear Clear
             .chat
                 ul.chat__messages#jsMessages
                 form.chat__form#jsSendMsg
