@@ -107,7 +107,7 @@ const fill = (color = null) => {
   if (color !== null) {
     ctx.fillStyle = color;
   }
-  ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+  ctx.fillRect(0, 0, canvas.width, CANVAS_SIZE);
   ctx.fillStyle = currentColor;
 };
 
@@ -164,12 +164,13 @@ export const enableCanvas = () => {
   canvas.addEventListener("click", handleCanvasClick);
 };
 
-export const hideControls = () => (controls.style.opacity = 0);
+export const hideControls = () => (controls.style.display = "none");
 
-export const showControls = () => (controls.style.opacity = 1);
+export const showControls = () => (controls.style.display = "flex");
+export const resetCanvas = () => fill("#fff");
 
 if (canvas) {
-  enableCanvas();
+  hideControls();
   canvas.addEventListener("contextmenu", handleCM);
   clear.addEventListener("click", clearCanvas);
 }

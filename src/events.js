@@ -14,6 +14,8 @@ const events = {
   playerUpdate: "playerUpdate",
   gameStarted: "gameStarted",
   leaderNotif: "leaderNotif",
+  gameEnded: "gameEnded",
+  gameStarting: "gameStarting",
   clear: "clear",
   cleared: "cleared"
 };

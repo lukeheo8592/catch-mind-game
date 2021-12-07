@@ -1,18 +1,51 @@
-import { disableCanvas, hideControls } from "./paint";
+import {
+  disableCanvas,
+  hideControls,
+  enableCanvas,
+  showControls,
+  resetCanvas,
+} from "./paint";
+
+import { disableChat, enableChat, resetTime, setTime } from "./chat";
 
 const board = document.getElementById("jsPBoard");
+const notifs = document.getElementById("jsNotifs");
 
-const addPlayers = players => {
+const addPlayers = (players) => {
   board.innerHTML = "";
-  players.forEach(player => {
+  players.forEach((player) => {
     const playerElement = document.createElement("span");
     board.appendChild(playerElement);
     playerElement.innerText = `${player.nickname}: ${player.points}`;
   });
 };
+const setNotifs = (text) => {
+  notifs.innerText = "";
+  notifs.innerText = text;
+};
 
 export const handlePlayerUpdate = ({ sockets }) => addPlayers(sockets);
 export const handleGameStarted = () => {
-    disableCanvas();
-    hideControls();
-  };
+  setTime();
+  setNotifs("");
+  disableCanvas();
+  hideControls();
+  enableChat();
+};
+export const handleLeaderNotif = ({ word }) => {
+  enableCanvas();
+  showControls();
+  disableChat();
+  notifs.innerText = `You are the leader, paint: ${word}`;
+};
+export const handleGameEnded = () => {
+  resetTime();
+  setNotifs("Game ended.");
+  disableCanvas();
+  hideControls();
+  resetCanvas();
+  enableChat();
+  
+};
+
+export const handleGameStarting = () => setNotifs("Game will start soon");

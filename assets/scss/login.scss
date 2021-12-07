@@ -13,7 +13,7 @@ input {
   .loginBox {
     box-shadow: $boxShadow;
     background-color: white;
-    padding: 40px;
+    padding: 60px;
     border-radius: 5px;
     .loginBox__title {
       text-align: center;
@@ -21,6 +21,7 @@ input {
       margin-bottom: 20px;
     }
     input {
-      width: 200px;
+      width: 300px;
+      text-align: center;
     }
   }
