@@ -20,7 +20,6 @@ const words = [
     "dime",
     "dirt",
     "dress",
-    "fang ",
     "field",
     "flag",
     "flower",

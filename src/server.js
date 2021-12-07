@@ -10,7 +10,7 @@ import events from "./events";
 const PORT = 4000;
 const app = express();
 app.set("view engine", "pug");
-app.set("views", join(__dirname, "views"));
+app.set("views", process.cwd() + "/src/views");
 app.use(logger("dev"));
 app.use(express.static(join(__dirname, "static")));
 app.get("/", (req, res) =>
