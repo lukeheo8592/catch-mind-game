@@ -7,7 +7,7 @@ import events from "./events";
 
 
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 8000;
 const app = express();
 app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
